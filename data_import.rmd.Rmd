@@ -5,6 +5,7 @@ output: github_document
 
 ```{r, setup}
 library(tidyverse)
+library(readxl)
 ```
 
 ## Read in some data
@@ -35,4 +36,25 @@ tail(litters_df)
 ```{r}
 skimr::skim(litters_df)
 ```
+
+##Opyions to read_csv
+
+```{r}
+litters_df = read_csv("./data/FAS_litters.csv")
+```
+
+check out '?read_csv()' for more info
+
+## Other file formats
+
+Read in an excel file.
+
+```{r}
+library(readxl)
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
+mlb_df
+```
+
+Read i a SAS file.
+
 
