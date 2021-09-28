@@ -5,7 +5,7 @@ output: github_document
 
 ```{r, setup}
 library(tidyverse)
-library(readxl)
+mean(pull(mtcars, mpg))
 ```
 
 ## Read in some data
