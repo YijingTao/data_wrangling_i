@@ -79,7 +79,8 @@ filter(litters_df, gd0_weight < 22)#only save the gd0_weight data which is less 
 ```
 
 ```{r}
-filter(litters_df, gd_of_birth == 20)#==is a test, whether they are equal or not
+filter(litters_df, gd_of_birth == 20)#==is a test, whether they are equal or not, save the datas whivh birth is exactly equal to 20
+filter(litters_df, group == "Con7")
 ```
 
 ```{r}
@@ -94,13 +95,26 @@ filter(litters_df, group == "Con7")
 filter(litters_df, group %in% c("con7","Mod8"))
 ```
 
+```{r}
+filter(litters_df, pups_survive != 4)#######???????????
+
+filter(litters_df, group %in% c("Con7","Con8"))#only interested in con7 and con8
+
+filter(litters_df, group == "Con7" | group == "Con8")
+
+drop_na(litters_df)
+drop_na(litters_df, gd_of_birth)##delete na
+```
+
+
 ## `mutate`
 
 ```{r}
 mutate(
   litters_df, 
   wt_gain = gd18_weight - gd0_weight,
-  group = str_to_lower(group))
+  group = str_to_lower("group")##make the group lower
+  )
 ```
 
 
@@ -108,7 +122,7 @@ mutate(
 
 
 ```{r}
-arrange(litters_df,pups_born_alive)#arrange based on pups_born_alive order
+arrange(litters_df,pups_born_alive)#arrange based on pups_born_alive order(small number to large number)
 ```
 
 ## `%>%`
@@ -126,10 +140,24 @@ Use the PIPE OPERATOR instead(more brief)
 ```{r}
 litters_df = (
   read_csv("./data/FAS_litters.csv") %>% #shift+ctrl+m----%>%---don't need to repeat anything
-    janitor::clean_names() %>% 
+    janitor::clean_names() %>%
     select(-pups_survive) %>% 
     drop_na(gd0_weight)
 )
+```
+
+
+```{r}
+litters_df = 
+  read_csv("./data/FAS_litters.csv") %>% #shift+ctrl+m----%>%---don't need to repeat anything
+    janitor::clean_names() %>%
+    select(-pups_survive) %>% 
+mutate(
+  litters_df, 
+  wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower("group")##make the group lower
+  ) %>%
+  drop_na(weight_change)
 ```
 
 
